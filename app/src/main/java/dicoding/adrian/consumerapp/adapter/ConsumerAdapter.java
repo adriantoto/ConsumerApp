@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -18,6 +20,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
+
 import dicoding.adrian.consumerapp.R;
 import dicoding.adrian.consumerapp.entity.MovieItem;
 
@@ -25,6 +28,7 @@ public class ConsumerAdapter extends RecyclerView.Adapter<ConsumerAdapter.MovieV
 
     private final ArrayList<MovieItem> listMovies = new ArrayList<>();
     private final Activity activity;
+    private OnItemClickListener listener;
 
     public ConsumerAdapter(Activity activity) {
         this.activity = activity;
@@ -91,6 +95,24 @@ public class ConsumerAdapter extends RecyclerView.Adapter<ConsumerAdapter.MovieV
             ivPoster = itemView.findViewById(R.id.img_item_poster_favorite_movie);
             tvScore = itemView.findViewById(R.id.tv_item_scoreAngkaHome_favorite_movie);
             pgMovie = itemView.findViewById(R.id.progressBar_item_favorite_movie);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(listMovies.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(MovieItem movieItems);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

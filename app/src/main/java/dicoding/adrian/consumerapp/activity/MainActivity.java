@@ -1,6 +1,7 @@
 package dicoding.adrian.consumerapp.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -69,6 +70,20 @@ public class MainActivity extends AppCompatActivity implements LoadMoviesCallbac
         myObserver = new DataObserver(handler, this);
         getContentResolver().registerContentObserver(CONTENT_URI, true, myObserver);
         new getData(this, this).execute();
+
+        // Intent to Detail Activity
+        consumerAdapter.setOnItemClickListener(new ConsumerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MovieItem movieItems) {
+                // Define and Start Intent
+                Intent moveWithObjectIntent = new Intent(MainActivity.this, DetailActivity.class);
+                moveWithObjectIntent.putExtra(DetailActivity.EXTRA_MOVIE, movieItems);
+                MainActivity.this.startActivity(moveWithObjectIntent);
+
+                // Intent Transition Animation
+                MainActivity.this.overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
+            }
+        });
     }
 
     // onBackPressed untuk exit

@@ -1,4 +1,4 @@
-package dicoding.adrian.consumerapp;
+package dicoding.adrian.consumerapp.db;
 
 import android.database.Cursor;
 import android.net.Uri;

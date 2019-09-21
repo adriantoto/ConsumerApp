@@ -4,9 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:background="@android:color/transparent"
-    tools:context=".MainActivity">
+    android:layout_marginBottom="?attr/actionBarSize"
+    tools:context=".activity.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_sky"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/banner_bg"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="10dp"
+        android:text="Your Favorite\nMovies"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_movie"
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movie_favorite"
@@ -15,14 +49,15 @@
         android:layout_marginTop="24dp"
         android:clipToPadding="false"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"
         tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_consumer_note" />
+
 
 </android.support.constraint.ConstraintLayout>

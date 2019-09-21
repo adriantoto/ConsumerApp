@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import dicoding.adrian.consumerapp.DatabaseContract;
+import dicoding.adrian.consumerapp.db.DatabaseContract;
 
 public class MovieItem implements Parcelable {
     private int id;

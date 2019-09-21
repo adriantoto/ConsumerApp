@@ -1,4 +1,4 @@
-package dicoding.adrian.consumerapp;
+package dicoding.adrian.consumerapp.activity;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -12,19 +12,26 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import dicoding.adrian.consumerapp.R;
 import dicoding.adrian.consumerapp.adapter.ConsumerAdapter;
 import dicoding.adrian.consumerapp.entity.MovieItem;
+import dicoding.adrian.consumerapp.utils.LoadMoviesCallback;
 
-import static dicoding.adrian.consumerapp.DatabaseContract.MovieColumns.CONTENT_URI;
-import static dicoding.adrian.consumerapp.MappingHelper.mapCursorToArrayList;
+import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.CONTENT_URI;
+import static dicoding.adrian.consumerapp.utils.MappingHelper.mapCursorToArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoadMoviesCallback {
+
+    // Variable back pressed
+    private long backPressedTime;
+    private Toast backToast;
 
     private ConsumerAdapter consumerAdapter;
     private DataObserver myObserver;
@@ -33,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements LoadMoviesCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Toolbar Declaration
+        Toolbar toolbarMovie = findViewById(R.id.toolbar_movie);
+        this.setSupportActionBar(toolbarMovie);
+        this.setTitle("");
 
         // Cast Recyclerview
         RecyclerView rvMovies = findViewById(R.id.rv_movie_favorite);
@@ -43,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements LoadMoviesCallbac
         rvMovies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         // Divider between item list
-        DividerItemDecoration itemDecorator = new DividerItemDecoration(Objects.requireNonNull(this), DividerItemDecoration.HORIZONTAL);
-        itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(Objects.requireNonNull(this), R.drawable.divider)));
+        DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+        itemDecorator.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
         rvMovies.addItemDecoration(itemDecorator);
         rvMovies.setHasFixedSize(true);
 
@@ -57,6 +69,20 @@ public class MainActivity extends AppCompatActivity implements LoadMoviesCallbac
         myObserver = new DataObserver(handler, this);
         getContentResolver().registerContentObserver(CONTENT_URI, true, myObserver);
         new getData(this, this).execute();
+    }
+
+    // onBackPressed untuk exit
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 
     @Override

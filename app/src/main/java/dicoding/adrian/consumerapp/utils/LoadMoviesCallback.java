@@ -1,4 +1,4 @@
-package dicoding.adrian.consumerapp;
+package dicoding.adrian.consumerapp.utils;
 
 import android.database.Cursor;
 

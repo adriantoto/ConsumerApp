@@ -10,6 +10,7 @@ import static android.provider.BaseColumns._ID;
 import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.BACKDROP;
 import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.OVERVIEW;
 import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.POSTER;
+import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.RELEASED;
 import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.SCORE;
 import static dicoding.adrian.consumerapp.db.DatabaseContract.MovieColumns.TITLE;
 
@@ -26,7 +27,8 @@ public class MappingHelper {
             String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(TITLE));
             String overview = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(OVERVIEW));
             String backdrop = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(BACKDROP));
-            moviesList.add(new MovieItem(id, poster, score, title, overview, backdrop));
+            String released = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(RELEASED));
+            moviesList.add(new MovieItem(id, poster, score, title, overview, backdrop, released));
         }
 
         return moviesList;

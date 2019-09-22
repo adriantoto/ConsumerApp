@@ -14,6 +14,11 @@ public class MovieItem implements Parcelable {
     private String title;
     private String overview;
     private String backdrop;
+    private String released;
+
+    public String getReleased() {
+        return released;
+    }
 
     public String getPoster() {
         return poster;
@@ -48,18 +53,20 @@ public class MovieItem implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.overview);
         dest.writeString(this.backdrop);
+        dest.writeString(this.released);
     }
 
     public MovieItem() {
     }
 
-    public MovieItem(int id, String poster, double score, String title, String overview, String backdrop) {
+    public MovieItem(int id, String poster, double score, String title, String overview, String backdrop, String released) {
         this.id = id;
         this.poster = poster;
         this.score = score;
         this.title = title;
         this.overview = overview;
         this.backdrop = backdrop;
+        this.released = released;
     }
 
     public MovieItem(Cursor cursor) {
@@ -69,6 +76,7 @@ public class MovieItem implements Parcelable {
         this.title = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.TITLE);
         this.overview = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.OVERVIEW);
         this.backdrop = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.BACKDROP);
+        this.released = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.RELEASED);
     }
 
     protected MovieItem(Parcel in) {
@@ -78,6 +86,7 @@ public class MovieItem implements Parcelable {
         this.title = in.readString();
         this.overview = in.readString();
         this.backdrop = in.readString();
+        this.released = in.readString();
     }
 
     public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {

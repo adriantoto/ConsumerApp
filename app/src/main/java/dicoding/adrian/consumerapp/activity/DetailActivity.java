@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
     // Widget Variables Declaration
     TextView txtTitleDetail;
     TextView txtOverviewDetail;
+    TextView txtReleasedDetail;
     ImageView posterBanner;
     ImageButton btnBack;
     ProgressBar progressBar;
@@ -54,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         // Casting Data Variables
         txtTitleDetail = findViewById(R.id.txt_title_detail);
         txtOverviewDetail = findViewById(R.id.txt_overviewDetail);
+        txtReleasedDetail = findViewById(R.id.txt_released_detail);
         posterBanner = findViewById(R.id.poster_banner);
         scoreDetail = findViewById(R.id.score_detail_movie);
 
@@ -87,6 +89,8 @@ public class DetailActivity extends AppCompatActivity {
         txtOverviewDetail.setText(movie.getOverview());
         double score = movie.getScore() * 10;
         scoreDetail.setRating((float) ((score * 5) / 100));
+        String released = (movie.getReleased()).substring(0, 4);
+        txtReleasedDetail.setText(released);
 
         // Mengisi data image
         String url = "https://image.tmdb.org/t/p/original" + movie.getBackdrop();

@@ -18,6 +18,7 @@ public class DatabaseContract {
         public static final String BACKDROP = "backdrop";
         public static final String OVERVIEW = "overview";
         public static final String SCORE = "score";
+        public static final String RELEASED = "released";
 
         public static final Uri CONTENT_URI = new Uri.Builder().scheme(SCHEME)
                 .authority(AUTHORITY)
